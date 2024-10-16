@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>動態選項選擇器 (含符號化刪除和本地存儲)</title>
+    <title>動態選項選擇器</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -104,7 +104,7 @@
     <br>
     <button class="add-btn" onclick="addOption()">新增欄位</button>
     <button class="choose-btn" onclick="chooseOption()">選擇</button>
-    <button class="choose-three-btn" onclick="chooseOptionThreeTimes()">連續抽選三次</button>
+    <button class="choose-three-btn" onclick="chooseOptionFiveTimes()">連續抽選五次</button>
     <br><br>
     <button onclick="exportOptions()">匯出選項檔案</button>
     <label for="import-file">匯入選項檔案</label>
@@ -187,7 +187,7 @@
         }
     }
 
-    function chooseOptionThreeTimes() {
+    function chooseOptionFiveTimes() {
         const options = document.getElementsByClassName('option-input');
         const validOptions = [];
         for (let i = 0; i < options.length; i++) {
@@ -205,14 +205,16 @@
                 let firstPick = validOptions[Math.floor(Math.random() * validOptions.length)];
                 let secondPick = validOptions[Math.floor(Math.random() * validOptions.length)];
                 let thirdPick = validOptions[Math.floor(Math.random() * validOptions.length)];
-
-                if (firstPick === secondPick && secondPick === thirdPick) {
+                let fourthPick = validOptions[Math.floor(Math.random() * validOptions.length)];
+                let fifthPick = validOptions[Math.floor(Math.random() * validOptions.length)];
+                
+                if (firstPick === secondPick && secondPick === thirdPick && thirdPick === fourthPick && fourthPick === fifthPick) {
                     clearInterval(interval); // 當結果相同時停止抽選
                     document.getElementById('loading').style.display = 'none';  // 隱藏loading圖示
-                    document.getElementById('result').innerText = `系統連續三次選擇了: ${firstPick}`;
+                    document.getElementById('result').innerText = `系統連續五次選擇了: ${firstPick}`;
                     saveOptions();
                 }
-            }, 500);  // 每次抽選間隔500ms，直到符合條件為止
+            }, 5);  // 每次抽選間隔5ms，直到符合條件為止
         } else {
             document.getElementById('result').innerText = "請輸入有效的選項。";
         }
